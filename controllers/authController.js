@@ -12,7 +12,7 @@
             return res.redirect('/');
         }
 
-        // continue user creation
+        
     } catch (error) {
         req.flash('error', 'Registration failed');
         return res.redirect('/');

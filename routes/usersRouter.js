@@ -21,12 +21,12 @@ router.post('/add-to-cart', async (req, res) => {
       return res.redirect('/shop');
     }
 
-    user.cart.push(productId); // ✅ Add product to cart
+    user.cart.push(productId); 
     await user.save();
 
     console.log("Product added to cart successfully");
     req.flash('success', 'Item added to cart!');
-    res.redirect('/shop'); // 👈 redirect instead of returning JSON
+    res.redirect('/shop'); 
   } catch (err) {
     console.error("❌ Error while adding to cart:", err);
     req.flash('error', 'Something went wrong while adding to cart');

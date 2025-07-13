@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require("config");
 const dbgr = require('debug')('development:mongoose');
 
-// Connect to MongoDB
+
 mongoose.connect(`${config.get('MONGODB_URI')}`)
     .then(() => dbgr('MongoDB connected'))
     .catch(err => dbgr('MongoDB connection error:', err));

@@ -33,11 +33,10 @@
 
     </nav>
 
-    <!-- Page Title -->
     <div class="px-10 py-6">
       <h1 class="text-3xl font-semibold mb-6">Shop.</h1>
 
-      <!-- Product Grid -->
+      
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <% products.forEach(product => { %>
           <div class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition duration-300">
@@ -68,7 +67,7 @@
   </div>
 
   <script>
-  // Auto-dismiss flash message after 3 seconds
+
   setTimeout(() => {
     const flash = document.getElementById('flash-message');
     if (flash) {
