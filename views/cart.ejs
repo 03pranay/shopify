@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-6 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="flex justify-end px-10 py-4 bg-gray-800 shadow mb-8">
+    <a href="/shop" class="mx-4 text-white hover:underline">Shop</a>
+    <a href="/cart" class="mx-4 text-white hover:underline">Cart</a>
+    <a href="/logout" class="text-red-500 hover:underline">Logout</a>
+  </nav>
+
+  <h1 class="text-2xl font-semibold mb-6">Your Cart</h1>
+
+  <% if (cartItems.length === 0) { %>
+    <p class="text-center text-gray-400 text-lg">Your cart is empty.</p>
+  <% } else { %>
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Cart Items -->
+      <div class="w-full lg:w-2/3 space-y-6">
+        <% cartItems.forEach(product => { %>
+          <div class="flex items-center bg-gray-800 rounded-lg shadow p-4">
+            <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" class="w-32 h-32 object-cover rounded" alt="<%= product.name %>">
+            <div class="flex-1 ml-6">
+              <h2 class="text-xl font-semibold mb-1"><%= product.name %></h2>
+              <p class="text-gray-400 mb-1">Net Total</p>
+              <p class="text-lg font-medium">₹ <%= product.price %></p>
+            </div>
+
+            <!-- Quantity & Remove -->
+            <div class="flex flex-col items-center space-y-2">
+              <div class="flex items-center border border-gray-600 px-2 rounded">
+                <button class="px-2 text-lg text-white">−</button>
+                <input type="text" value="01" class="w-10 text-center bg-transparent text-white outline-none" readonly>
+                <button class="px-2 text-lg text-white">+</button>
+              </div>
+              <form action="/remove-from-cart" method="POST">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <button class="text-red-400 hover:underline text-sm mt-1">Remove</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+      <!-- Price Summary -->
+      <div class="w-full lg:w-1/3 bg-gray-800 rounded-lg shadow p-6">
+        <h2 class="text-lg font-semibold mb-4">Price Breakdown</h2>
+
+        <div class="flex justify-between mb-2">
+          <span>Total MRP</span>
+          <span>₹ <%= totalMRP %></span>
+        </div>
+
+        <div class="flex justify-between mb-2">
+          <span>Discount on MRP</span>
+          <span>₹ <%= totalDiscount %></span>
+        </div>
+
+        <div class="flex justify-between mb-2">
+          <span>Platform Fee</span>
+          <span>₹ 20</span>
+        </div>
+
+        <div class="flex justify-between mb-4">
+          <span>Shipping Fee</span>
+          <span class="text-green-400 font-semibold">FREE</span>
+        </div>
+
+        <hr class="my-2 border-gray-600">
+
+        <div class="flex justify-between mt-4 text-xl font-bold">
+          <span>Total Amount</span>
+          <span class="text-green-400">₹ <%= totalMRP - totalDiscount + 20 %></span>
+        </div>
+      </div>
+    </div>
+  <% } %>
+
+</body>
+</html>

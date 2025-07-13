@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create New Product</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow h-screen p-6">
+      <h1 class="text-xl font-semibold mb-8">Baggify</h1>
+      <nav class="space-y-4">
+        <a href="#" class="block text-black hover:font-semibold">All Products</a>
+        <a href="#" class="block text-black hover:font-semibold">Create new product</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10">
+      <h2 class="text-2xl font-bold mb-6">Create New Product</h2>
+
+      <form action="/owner/product/create" method='POST' enctype="multipart/form-data" class="bg-white p-6 rounded shadow max-w-2xl space-y-6">
+        <!-- Product Details -->
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Product Details</h3>
+
+          <label class="block mb-2">Product Image</label>
+          <input type="file" name="image" class="mb-4" />
+
+          <div class="grid grid-cols-2 gap-4">
+            <input type="text" placeholder="Product Name" name="name" class="border px-4 py-2 rounded w-full" />
+            <input type="text" placeholder="Product Price" name="price" class="border px-4 py-2 rounded w-full" />
+          </div>
+          <input type="text" placeholder="Discount Price" name="discount" class="border px-4 py-2 rounded w-full mt-4" />
+        </div>
+
+        <!-- Panel Details -->
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Panel Details</h3>
+
+          <div class="grid grid-cols-2 gap-4">
+            <input type="text" placeholder="Background Color" name="bgcolor" class="border px-4 py-2 rounded w-full bg-[<%= product.bgcolor %>]" />
+            <input type="text" placeholder="Panel Color" name="panelcolor" class="border px-4 py-2 rounded w-full bg-[<%= product.panelcolor %>]" />
+          </div>
+          <input type="text" placeholder="Text Color" name="textcolor" class="border px-4 py-2 rounded w-full mt-4 bg-[<%= product.textcolor %>]" />
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+          Create New Product
+        </button>
+      </form>
+    </main>
+  </div>
+
+</body>
+</html>

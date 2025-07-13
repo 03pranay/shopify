@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      };
+    </script>
+  </head>
+  <body class="bg-gray-100 dark:bg-gray-900 text-black dark:text-white min-h-screen transition-colors duration-300">
+
+    <% if (success_msg.length > 0) { %>
+      <div id="flash-message" class="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 px-4 py-2 rounded mb-4 text-center max-w-2xl mx-auto mt-4 shadow">
+        <%= success_msg[0] %>
+      </div>
+    <% } %>
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center px-8 py-4 bg-white dark:bg-gray-800 shadow">
+      <h1 class="text-xl font-bold">Shopify</h1>
+
+      <% var loggedIn = typeof isLoggededin !== 'undefined' ? isLoggededin : true %>
+      <% if (loggedIn) { %>
+        <ul class="flex gap-6 text-sm">
+          <li><a href="/shop" class="hover:underline">Shop</a></li>
+          <li><a href="/cart" class="hover:underline">Cart</a></li>
+          <li><a href="/logout" class="text-red-600 hover:underline">Logout</a></li>
+        </ul>
+      <% } %>
+
+    </nav>
+
+    <!-- Page Title -->
+    <div class="px-10 py-6">
+      <h1 class="text-3xl font-semibold mb-6">Shop.</h1>
+
+      <!-- Product Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <% products.forEach(product => { %>
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition duration-300">
+            <div class="h-40 bg-[<%= product.bgcolor %>] flex items-center justify-center rounded-t-lg overflow-hidden">
+              <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="<%= product.name %>" class="object-cover h-full" />
+            </div>
+
+            <div class="p-4">
+              <h2 class="text-lg font-semibold mb-1 text-black dark:text-white bg-[<%= product.textcolor %>]"><%= product.name %></h2>
+              <div class="text-sm text-gray-700 dark:text-gray-300 bg-[<%= product.panelcolor %>] px-2 py-1 rounded mb-2 inline-block">
+                ₹ <%= product.price %>
+              </div>
+
+              <% if (product.discount) { %>
+                <div class="text-xs text-pink-600 font-semibold mb-2"><%= product.discount %>% OFF</div>
+              <% } %>
+
+              <form action="/add-to-cart" method="POST" class="mt-2">
+                <input type="hidden" name="productId" value="<%= product._id %>" />
+                <button type="submit" class="w-full bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 text-sm py-1 rounded border border-gray-300 dark:border-gray-500">
+                  Add to Cart
+                </button>
+              </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <script>
+  // Auto-dismiss flash message after 3 seconds
+  setTimeout(() => {
+    const flash = document.getElementById('flash-message');
+    if (flash) {
+      flash.style.display = 'none';
+    }
+  }, 3000);
+   if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+
+      function toggleDarkMode() {
+        const html = document.documentElement;
+        html.classList.toggle("dark");
+        const theme = html.classList.contains("dark") ? "dark" : "light";
+        localStorage.setItem("theme", theme);
+      }
+</script>
+
+</body>
+</html>

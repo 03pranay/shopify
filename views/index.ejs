@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratch Auth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+  <% if (error_msg && error_msg.length > 0) { %>
+  <div class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-center py-2 px-4 rounded shadow-lg z-50 flash-message">
+    <%= error_msg[0] %>
+  </div>
+  <% } %>
+
+
+
+  <div class="flex w-[800px] h-[450px] bg-gray-800 shadow-2xl rounded-lg overflow-hidden">
+
+    <!-- Register Section -->
+    <div class="w-1/2 p-10 bg-gray-900">
+      <h2 class="text-xl font-medium mb-2">Welcome to 
+        <span class="text-blue-500 font-bold">Baggify</span>
+      </h2>
+      <p class="text-sm text-gray-400 mb-6">Create your account</p>
+      <form action="/register" method="POST">
+        <input 
+          class="w-full mb-4 px-4 py-2 border border-gray-700 bg-gray-800 text-white rounded" 
+          type="text" 
+          name="fullname" 
+          placeholder="Full Name" 
+        />
+        <input 
+          class="w-full mb-4 px-4 py-2 border border-gray-700 bg-gray-800 text-white rounded" 
+          type="email" 
+          name="email" 
+          placeholder="Email" 
+        />
+        <input 
+          class="w-full mb-4 px-4 py-2 border border-gray-700 bg-gray-800 text-white rounded" 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+        />
+        <button 
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition"
+        >
+          Create My Account
+        </button>
+      </form>
+    </div>
+
+    <!-- Separator -->
+    <div class="w-1/12 flex justify-center items-center">
+      <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex justify-center items-center text-sm">
+        or
+      </div>
+    </div>
+
+    <!-- Login Section -->
+    <div class="w-5/12 p-10 bg-gray-900">
+      <h2 class="text-xl font-medium mb-2">Login your account</h2>
+      <form action="/login" method="POST">
+        <input 
+          class="w-full mb-4 px-4 py-2 border border-gray-700 bg-gray-800 text-white rounded" 
+          type="email" 
+          name="email" 
+          placeholder="Email" 
+        />
+        <input 
+          class="w-full mb-4 px-4 py-2 border border-gray-700 bg-gray-800 text-white rounded" 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+        />
+        <button 
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+
+  </div>
+  <script>
+  setTimeout(() => {
+      const alertBox = document.querySelector('.bg-red-600');
+      if (alertBox) alertBox.remove();
+  }, 3000);
+  </script>
+
+
+</body>
+</html>
