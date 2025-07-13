@@ -2,21 +2,31 @@
  const bcrypt = require('bcrypt');
  const jwt = require('jsonwebtoken');
  const { generateToken } = require('../utils/generateToken');
- module.exports.registerUser = async function(req, res) {
-    try {
-        const { email } = req.body;
-        const existingUser = await userModel.findOne({ email });
+module.exports.registerUser = async function (req, res) {
+  try {
+    const { email, password } = req.body;
+    const existingUser = await userModel.findOne({ email });
 
-        if (existingUser) {
-            req.flash('error', 'Email already registered');
-            return res.redirect('/');
-        }
-
-        
-    } catch (error) {
-        req.flash('error', 'Registration failed');
-        return res.redirect('/');
+    if (existingUser) {
+      req.flash('error', 'Email already registered');
+      return res.redirect('/');
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10); 
+    const newUser = new userModel({
+      email,
+      password: hashedPassword,
+    });
+
+    await newUser.save(); 
+
+    req.flash('success', 'Registration successful');
+    return res.redirect('/');
+  } catch (error) {
+    console.error(error);
+    req.flash('error', 'Registration failed');
+    return res.redirect('/');
+  }
 };
 
 
