@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.use("/owners", ownersRouter);
 app.use("/", usersRouter);
-app.use("/owner/product", productsRouter);
+app.use("/products", productsRouter);
 app.get('/', autoroutes);
 app.get('/', (req, res) => {
   res.render('index');
